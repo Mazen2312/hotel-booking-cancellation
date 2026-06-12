@@ -1,0 +1,9 @@
+numpy
+pandas
+plotly
+scikit-learn
+xgboost
+category_encoders
+imbalanced-learn
+joblib
+streamlit
