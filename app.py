@@ -85,32 +85,38 @@ elif page == 'Prediction':
         submitted = st.form_submit_button('Predict', type='primary')
 
     if submitted:
+        total_stay_val = weekend + week
+        total_people_val = adults + children + babies
         data = {
-            'hotel': hotel, 'lead_time': lead,
-            'stays_in_weekend_nights': weekend, 'stays_in_week_nights': week,
-            'adults': adults, 'children': children, 'babies': babies,
-            'meal': meal, 'country': country,
-            'market_segment': segment, 'distribution_channel': channel,
+            'hotel': hotel,
+            'lead_time': lead,
+            'stays_in_weekend_nights': weekend,
+            'stays_in_week_nights': week,
+            'adults': adults,
+            'children': children,
+            'babies': babies,
+            'meal': meal,
+            'country': country,
+            'market_segment': segment,
+            'distribution_channel': channel,
             'is_repeated_guest': repeated,
             'previous_cancellations': prev_cancel,
             'previous_bookings_not_canceled': prev_not,
-            'reserved_room_type': room, 'assigned_room_type': assigned,
-            'booking_changes': changes, 'deposit_type': deposit,
-            'days_in_waiting_list': waiting, 'customer_type': cust,
-            'adr': adr, 'required_car_parking_spaces': parking,
+            'reserved_room_type': room,
+            'assigned_room_type': assigned,
+            'booking_changes': changes,
+            'deposit_type': deposit,
+            'days_in_waiting_list': waiting,
+            'customer_type': cust,
+            'adr': adr,
+            'required_car_parking_spaces': parking,
             'total_of_special_requests': requests,
-            'company': 0,
-            'arrival_date_year': 2017, 'arrival_date_month': 'June',
-            'arrival_date_week_number': 25, 'arrival_date_day_of_month': 15
+            'total_stay': total_stay_val,
+            'total_people': total_people_val,
+            'arrival_month_num': 6,
+            'arrival_season': 'Summer'
         }
         inp = pd.DataFrame([data])
-        inp['total_stay'] = inp['stays_in_weekend_nights'] + inp['stays_in_week_nights']
-        inp['total_people'] = inp['adults'] + inp['children'] + inp['babies']
-        inp['arrival_month_num'] = 6
-        inp['arrival_season'] = 'Summer'
-        drop_cols = ['arrival_date_year', 'arrival_date_month', 'arrival_date_week_number',
-                     'arrival_date_day_of_month', 'company', 'reservation_status', 'reservation_status_date']
-        inp.drop(columns=[c for c in drop_cols if c in inp.columns], inplace=True)
 
         pred = model.predict(inp)[0]
         prob = model.predict_proba(inp)[0]
@@ -141,10 +147,10 @@ elif page == 'Model Performance':
 
     st.markdown('**Hold-out Test Set Results (30% unseen data):**')
     tc1, tc2, tc3, tc4 = st.columns(4)
-    tc1.metric('Test F1', '0.6878')
-    tc2.metric('Test Accuracy', '0.8299')
+    tc1.metric('Test F1', '0.6887')
+    tc2.metric('Test Accuracy', '0.8302')
     tc3.metric('Precision (Canceled)', '0.69')
-    tc4.metric('Recall (Canceled)', '0.68')
+    tc4.metric('Recall (Canceled)', '0.69')
 
     data = {
         'Model': ['XGBoost', 'LightGBM', 'Random Forest', 'Logistic Regression', 'K-Nearest Neighbors', 'Decision Tree'],
