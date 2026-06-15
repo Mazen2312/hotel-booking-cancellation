@@ -213,8 +213,8 @@ Open `hotel_booking_pipeline.ipynb` in Jupyter and run **Restart & Run All** to 
 
 **Mazen Raafat**
 
-- [LinkedIn](https://linkedin.com/in/mazen-raafat)
-- [GitHub](https://github.com/<your-username>)
+- [LinkedIn](www.linkedin.com/in/mazen-raafat1)
+- [GitHub]([https://github.com/<your-username>](https://github.com/Mazen2312))
 
 ---
 
